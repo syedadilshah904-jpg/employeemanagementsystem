@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Employee Management System</title>
+
+    <!-- ===== CSS STYLE ===== -->
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+            border-radius: 8px;
+        }
+
+        input,
+        button {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        button {
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HTML ===== -->
+    <h1>Employee Management System</h1>
+
+    <div class="container">
+        <input id="empId" placeholder="Employee ID">
+        <input id="empName" placeholder="Employee Name">
+        <input id="empDept" placeholder="Department">
+        <input id="empSalary" placeholder="Salary">
+        <button onclick="addEmployee()">Add Employee</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Salary</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        let employees = [];
+
+        function addEmployee() {
+            let id = empId.value;
+            let name = empName.value;
+            let dept = empDept.value;
+            let salary = empSalary.value;
+
+            employees.push({ id, name, dept, salary });
+            displayEmployees();
+
+            empId.value = "";
+            empName.value = "";
+            empDept.value = "";
+            empSalary.value = "";
+        }
+
+        function displayEmployees() {
+            tableBody.innerHTML = "";
+            employees.forEach((emp, index) => {
+                tableBody.innerHTML += `
+          <tr>
+            <td>${emp.id}</td>
+            <td>${emp.name}</td>
+            <td>${emp.dept}</td>
+            <td>${emp.salary}</td>
+            <td>
+              <button onclick="deleteEmployee(${index})">Delete</button>
+            </td>
+          </tr>
+        `;
+            });
+        }
+
+        function deleteEmployee(index) {
+            employees.splice(index, 1);
+            displayEmployees();
+        }
+    </script>
+
+</body>
+
+</html>
